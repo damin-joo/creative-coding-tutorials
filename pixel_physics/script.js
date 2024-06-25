@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
     class Particle {
         constructor(effect, x, y, color) {
             this.effect = effect;
-            this.x = Math.random() * this.effect.width;      //Math.random() * this.effect.width
+            this.x = Math.random() * this.effect.width;
             this.y = y;
             this.originX = Math.floor(x);
             this.originY = Math.floor(y);
@@ -17,7 +17,13 @@ window.addEventListener('load', function() {
             this.size = this.effect.gap;         //pixel size
             this.vx = 0;        //velocity x
             this.vy = 0;
-            this.ease = 0.02;
+            this.ease = 0.05;
+            this.friction = 0.4;
+            this.dx =0;
+            this.dy =0;
+            this.distance =0;
+            this.force =0;
+            this.angle =0;
         }
 
         draw(context) {
@@ -26,8 +32,25 @@ window.addEventListener('load', function() {
         }
 
         update() {
-            this.x += (this.originX - this.x) * this.ease;
-            this.y += (this.originY - this.y) * this.ease;
+            this.dx = this.effect.mouse.x - this.x;
+            this.dy = this.effect.mouse.y - this.y;
+            this.distance = this.dx * this.dx + this.dy * this.dy;
+            this.force = -this.effect.mouse.radius / this.distance;
+
+            if (this.distance < this.effect.mouse.radius){
+                this.angle = Math.atan2(this.dy, this.dx);      //returns angle btw x and y
+                this.vx += this.force * Math.cos(this.angle);       
+                this.vy += this.force * Math.sin(this.angle); 
+            }
+
+            this.x += (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+            this.y += (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
+        }
+
+        warp() {
+            this.x = Math.random() * this.effect.width;
+            this.y = Math.random() * this.effect.height;
+            this.ease = 0.05;
         }
     }
 
@@ -39,13 +62,22 @@ window.addEventListener('load', function() {
             this.image = document.getElementById('image1');
             this.centerX = this.width * 0.5;
             this.centerY = this.height * 0.5;
-            this.x = this.centerX - this.image.width/6;
-            this.y = this.centerY - this.image.height/6;
+            this.x = this.centerX - this.image.width/2;
+            this.y = this.centerY - this.image.height/2;
             this.gap = 3;       //quality of image: large = low res
+            this.mouse = {
+                radius: 10000,
+                x: undefined,
+                y: undefined
+            }
+            window.addEventListener('mousemove', event => {
+                this.mouse.x = event.x;
+                this.mouse.y = event.y;
+            });
         }
 
         init(context) {
-            context.drawImage(this.image, this.x, this.y, this.image.width/3, this.image.height/3);
+            context.drawImage(this.image, this.x, this.y);
             const pixels = context.getImageData(0, 0, this.width, this.height).data;
             
             for(let y=0; y < this.height; y += this.gap) {
@@ -72,11 +104,14 @@ window.addEventListener('load', function() {
             this.particlesArray.forEach(particle => particle.update());
         }
 
+        warp() {
+            this.particlesArray.forEach(particle => particle.warp());
+        }
+
     }
 
     const effect = new Effect(canvas.width, canvas.height);
     effect.init(ctx);
-    console.log(effect);
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -85,5 +120,11 @@ window.addEventListener('load', function() {
         requestAnimationFrame(animate);
     }
     animate();
+
+    // warp button
+    const warpButton = document.getElementById('warpButton');
+    warpButton.addEventListener('click', function() {
+        effect.warp();
+    });
 
 });
