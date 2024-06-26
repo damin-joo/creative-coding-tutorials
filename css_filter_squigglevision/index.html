@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS SVG Filter Animation Menu Hover Squigglevision </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="button_wrapper">
+            <button></button>
+            <div class="button_label">HOME</div>
+        </div>
+        <div class="button_wrapper">
+            <button></button>
+            <div class="button_label">ABOUT</div>
+        </div>
+        <div class="button_wrapper">
+            <button></button>
+            <div class="button_label">ARTWORKS</div>
+        </div>
+        <div class="button_wrapper">
+            <button></button>
+            <div class="button_label">CONTACT</div>
+        </div>
+        <div class="button_wrapper">
+            <button></button>
+            <div class="button_label">SHOP</div>
+        </div>
+    </div>
+    <svg>
+        <defs>
+            <!-- edit baseFrequency and scale value and animate -->
+            <filter id="shake0">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" seed="0"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="7"/>
+            </filter>
+            <filter id="shake1">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" seed="1"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="5"/>
+            </filter>
+            <filter id="shake2">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" seed="2"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="8"/>
+            </filter>
+            <filter id="shake3">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" seed="3"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale=""/>
+            </filter>
+            <filter id="shake4">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" seed="4"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="10"/>
+            </filter>
+        </defs>
+    </svg>
+</body>
+</html>

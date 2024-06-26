@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 1s;
+}
+
+.wrapper {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+}
+
+.frame {
+    position: absolute;
+    border: 5px solid black;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background: url('building_silhouette.png');
+    background-size: 100%;
+    background-position: 10% 125%;
+    background-repeat: repeat-x;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.7);
+
+    transition: 1s;
+}
+
+.depth0 {
+    position: absolute;
+    height: 550px;
+    top: -65px;
+    right: 20px;
+}
+
+.depth1 {
+    position: absolute;
+    pointer-events: none;
+    transition: 1s;
+}
+
+.butterfly_1 {
+    height: 300px;
+    left: 0px;
+    bottom: -20px;
+}
+
+.butterfly_2 {
+    height: 130px;
+    right: 30px;
+    bottom: 50px;
+}
+
+.cat {
+    height: 286px;
+    top: -50px;
+    right: 0px;
+}
+
+.wrapper:hover .frame {
+    background-position: 0% 110%;
+    transform: rotateY(25deg) rotateZ(-15deg) translateZ(20px);
+    box-shadow: -35px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper:hover .kflag {
+    transform: translateX(40px) translateY(-25px) scale(1.5) rotateY(40deg) rotateZ(-15deg);
+}
+
+.wrapper:hover .butterfly_1 {
+    transform: translateX(100px) translateY(75px) scale(1.0) rotateY(40deg) rotateZ(-10deg);
+}
+
+.wrapper:hover .butterfly_2 {
+    transform: translateX(80px) translateY(-120px) scale(0.9) rotateY(35deg) rotateZ(-20deg);
+}
+
+
