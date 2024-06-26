@@ -1,0 +1,40 @@
+.deck {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.container {
+    width: 220px;
+    height: 310px;
+    border-radius: 0.8rem;
+    padding: 10px;
+    margin: 30px;
+}
+
+.overlay {
+    position: absolute;
+    width: 220px;
+    height: 310px;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 219, 112, 0.8) 45%, rgba(132, 50, 255, 0.6) 50%, transparent 54%);;
+    filter: brightness(0.7) opacity(0.6);
+    mix-blend-mode: color-dodge;
+    background-size: 150%, 150%;
+    background-position: 100%;
+    transition: all 0.1s;
+}
+
+.card {
+    width: 220px;
+    height: 310px;
+    background-size: cover;
+    border-radius: 0.5rem;    
+}
+
+.card.one {
+    background-image: url(pokemon1.jpg);
+}
+
+.card.two {
+    background-image: url(pokemon2.jpg);
+}
